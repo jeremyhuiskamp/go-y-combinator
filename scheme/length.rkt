@@ -1,9 +1,9 @@
 #lang racket
 
-(lambda (h)
-  ((lambda (f) (f f))
-   (lambda (f)
-     (h (lambda (x) ((f f) x))))))
+(lambda (make-length)
+  ((lambda (recurser) (recurser recurser))
+   (lambda (recurser)
+     (make-length (lambda (list) ((recurser recurser) list))))))
 
 (lambda (list)
   (cond
