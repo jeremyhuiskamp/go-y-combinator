@@ -1,5 +1,7 @@
 package main
 
+import "os"
+
 type LengthFunc func([]string) int
 type LengthFuncFunc func(LengthFuncFunc) LengthFunc
 
@@ -23,5 +25,5 @@ func main() {
 				return 1 + length(list[1:])
 			}
 		},
-	)
+	)(os.Args[1:])
 }
