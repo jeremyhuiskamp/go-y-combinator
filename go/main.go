@@ -9,16 +9,16 @@ type LengthFunc func([]string) int
 type LengthFuncFunc func(LengthFuncFunc) LengthFunc
 
 func main() {
+	applyToSelf := func(recurser LengthFuncFunc) LengthFunc {
+		return recurser(recurser)
+	}
 	y := func(makeLength func(LengthFunc) LengthFunc) LengthFunc {
-		thing1 := func(recurser LengthFuncFunc) LengthFunc {
-			return recurser(recurser)
-		}
 		thing2 := func(recurser LengthFuncFunc) LengthFunc {
 			return makeLength(func(list []string) int {
 				return recurser(recurser)(list)
 			})
 		}
-		return thing1(thing2)
+		return applyToSelf(thing2)
 	}
 	incompleteLength := func(length LengthFunc) LengthFunc {
 		return func(list []string) int {
