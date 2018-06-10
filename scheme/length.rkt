@@ -5,7 +5,8 @@
    (lambda (recurser)
      (make-length (lambda (list) ((recurser recurser) list))))))
 
-(lambda (list)
-  (cond
-    ((null? list) 0)
-    (else (+ 1 (length (cdr list))))))
+(lambda (length)
+  (lambda (list)
+    (cond
+      ((null? list) 0)
+      (else (+ 1 (length (cdr list)))))))
