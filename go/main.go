@@ -1,7 +1,9 @@
 package main
 
+type LengthFunc func([]string) int
+
 func main() {
-	_ = func(length func([]string) int) func([]string) int {
+	_ = func(length LengthFunc) LengthFunc {
 		return func(list []string) int {
 			if len(list) == 0 {
 				return 0
