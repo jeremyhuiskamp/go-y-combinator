@@ -9,7 +9,7 @@ type LengthFunc func([]string) int
 type LengthFuncFunc func(LengthFuncFunc) LengthFunc
 
 func main() {
-	length := func(makeLength func(LengthFunc) LengthFunc) LengthFunc {
+	y := func(makeLength func(LengthFunc) LengthFunc) LengthFunc {
 		return func(recurser LengthFuncFunc) LengthFunc {
 			return recurser(recurser)
 		}(
@@ -19,16 +19,16 @@ func main() {
 				})
 			},
 		)
-	}(
-		func(length LengthFunc) LengthFunc {
-			return func(list []string) int {
-				if len(list) == 0 {
-					return 0
-				}
-				return 1 + length(list[1:])
+	}
+	incompleteLength := func(length LengthFunc) LengthFunc {
+		return func(list []string) int {
+			if len(list) == 0 {
+				return 0
 			}
-		},
-	)
+			return 1 + length(list[1:])
+		}
+	}
+	length := y(incompleteLength)
 
 	fmt.Println(length(os.Args[1:]))
 }
