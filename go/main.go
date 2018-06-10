@@ -1,6 +1,7 @@
 package main
 
 type LengthFunc func([]string) int
+type LengthFuncFunc func(LengthFuncFunc) LengthFunc
 
 func main() {
 	_ = func(makeLength func(LengthFunc) LengthFunc) LengthFunc {
