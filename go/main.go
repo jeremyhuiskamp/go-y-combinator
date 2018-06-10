@@ -4,6 +4,9 @@ type LengthFunc func([]string) int
 
 func main() {
 	_ = func(makeLength func(LengthFunc) LengthFunc) LengthFunc {
+		_ = makeLength(func(list []string) int {
+			return recurser(recurser)(list)
+		})
 		return nil
 	}(
 		func(length LengthFunc) LengthFunc {
